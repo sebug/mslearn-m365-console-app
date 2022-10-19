@@ -18,7 +18,8 @@ var graphRequest = client.Users.Request()
         u.DisplayName,
         u.Mail
     })
-    .Top(15);
+    .Top(15)
+    .OrderBy("DisplayName desc");
 
 var results = await graphRequest.GetAsync();
 
