@@ -17,7 +17,8 @@ var graphRequest = client.Users.Request()
     .Select(u => new {
         u.DisplayName,
         u.Mail
-    });
+    })
+    .Top(15);
 
 var results = await graphRequest.GetAsync();
 
