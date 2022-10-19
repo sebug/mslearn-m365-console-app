@@ -13,7 +13,11 @@ var settings = config.GetRequiredSection("M365Console").Get<M365ConsoleOptions>(
 
 var client = GetAuthenticatedGraphClient(settings);
 
-var graphRequest = client.Users.Request();
+var graphRequest = client.Users.Request()
+    .Select(u => new {
+        u.DisplayName,
+        u.Mail
+    });
 
 var results = await graphRequest.GetAsync();
 
