@@ -19,7 +19,7 @@ var graphRequest = client.Users.Request()
         u.Mail
     })
     .Top(15)
-    .OrderBy("DisplayName desc");
+    .Filter("startsWith(surname, 'G') or startsWith(surname, 'L')");
 
 var results = await graphRequest.GetAsync();
 
