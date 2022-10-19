@@ -13,20 +13,18 @@ var settings = config.GetRequiredSection("M365Console").Get<M365ConsoleOptions>(
 
 var client = GetAuthenticatedGraphClient(settings);
 
-var graphRequest = client.Users.Request()
-    .Select(u => new {
-        u.DisplayName,
-        u.Mail
-    })
-    .Top(15)
-    .Filter("startsWith(surname, 'G') or startsWith(surname, 'L')");
+var graphRequest = client.Groups.Request().Top(5).Expand("members");
 
 var results = await graphRequest.GetAsync();
 
-foreach (var user in results)
+foreach (var g in results)
 {
-    Console.WriteLine($"{user.Id}: {user.DisplayName} <{user.Mail}>");
+    foreach (var user in g.Members)
+    {
+        Console.WriteLine($"{user.Id}: {((Microsoft.Graph.User)user).DisplayName}");
+    }
 }
+
 Console.WriteLine(Environment.NewLine + "Graph Request:");
 Console.WriteLine(graphRequest.GetHttpRequestMessage().RequestUri);
 
