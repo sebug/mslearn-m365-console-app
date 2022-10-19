@@ -8,4 +8,4 @@ var config = new ConfigurationBuilder()
 
 var settings = config.GetRequiredSection("M365Console").Get<M365ConsoleOptions>();
 
-Console.WriteLine("Hello, " + settings.TenantID);
+Console.WriteLine("Hello, " + settings.RedirectUri);
